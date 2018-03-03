@@ -1,0 +1,36 @@
+server:
+  gzip:
+    bufferSize: 8KiB
+    includedMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+  requestLog:
+    appenders:
+      - type: file
+        currentLogFileName: /opt/logs/HealthCheckApp/access.log
+        logFormat: "%h %l %responseHeader{X-Request-Tracker} %u %date \"%r\" %s %b %D"
+        threshold:  ALL
+        archive:  false
+  applicationConnectors:
+    - type: http
+      port: 7979
+
+logging:
+  level:  INFO
+  loggers:
+    org.hibernate:  INFO
+    org.apache.http:  INFO
+
+  appenders:
+    - type: file
+      threshold:  DEBUG
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%X{Request-Tracker}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: /opt/logs/HealthCheckApp/access.log
+      archive:  false
+      timeZone: UTC
+      maxFileSize:  20MB
+
+spring.profiles:  integration
+spring.data.mongodb.uri:  mongodb://localhost:27017/envServiceHealthCheck
