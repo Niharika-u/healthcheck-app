@@ -40,16 +40,16 @@ public class ProjectInfo {
         return projectId;
     }
 
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
     }
 
     public String getProjectName() {

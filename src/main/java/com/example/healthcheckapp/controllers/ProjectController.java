@@ -58,4 +58,5 @@ public class ProjectController {
     public void deleteProjectInfo(@PathVariable("pid") String pid){
         projectRepository.delete(pid);
     }
+
 }
