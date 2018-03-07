@@ -23,8 +23,8 @@ public class ProjectInfo {
     @Indexed(unique = true)
     private String projectName;
 
-    @NotBlank
-    private String createdBy;
+    /*@NotBlank
+    private String createdBy;*/
 
     private Date projectCreatedAt = new Date();
 
@@ -44,13 +44,13 @@ public class ProjectInfo {
         this.projectId = projectId;
     }
 
-    public String getCreatedBy() {
+    /*public String getCreatedBy() {
         return createdBy;
     }
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
+    }*/
 
     public String getProjectName() {
         return projectName;
@@ -70,7 +70,7 @@ public class ProjectInfo {
 
     @Override
     public String toString(){
-        return String.format("ProjectInfo[projectId=%s, projectName='%s', createdBy='%s', projectCreatedAt='%s']",
-                projectId, projectName, createdBy, projectCreatedAt);
+        return String.format("ProjectInfo[projectId=%s, projectName='%s', projectCreatedAt='%s']",
+                projectId, projectName, projectCreatedAt);
     }
 }
