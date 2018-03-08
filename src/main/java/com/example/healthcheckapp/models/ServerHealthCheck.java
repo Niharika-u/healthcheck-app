@@ -4,13 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Date;
 
 /**
  * Created By MMT6540 on 02 Mar, 2018
  */
-
 @Document(collection="servicehealthchecktbl")
 @JsonIgnoreProperties(value = {"healthCheckCreatedAt"}, allowGetters = true)
 public class ServerHealthCheck {
@@ -28,6 +26,7 @@ public class ServerHealthCheck {
     @NotBlank
     private String ipAddress;
 
+
     @NotBlank
     private String applicationPort;
 
@@ -39,20 +38,26 @@ public class ServerHealthCheck {
 
     private Date healthCheckCreatedAt = new Date();
 
+    @NotBlank
+    public String envName;
+
     public ServerHealthCheck(){
         super();
     }
 
-    public ServerHealthCheck(String projectName, String componentName, String ipAddress, String applicationPort, String healthCheckUrl){
+    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckUrl){
         this.projectName = projectName;
+        this.envName = envName;
         this.componentName = componentName;
         this.ipAddress = ipAddress;
         this.applicationPort = applicationPort;
         this.healthCheckUrl = healthCheckUrl;
+
     }
 
-    public ServerHealthCheck(String projectName, String componentName, String ipAddress, String applicationPort, String healthCheckUrl, String createdBy){
+    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckUrl, String createdBy){
         this.projectName = projectName;
+        this.envName = envName;
         this.componentName = componentName;
         this.ipAddress = ipAddress;
         this.applicationPort = applicationPort;
@@ -74,6 +79,14 @@ public class ServerHealthCheck {
 
     public void setComponentName(String componentName) {
         this.componentName = componentName;
+    }
+
+    public String getEnvName() {
+        return envName;
+    }
+
+    public void setEnvName(String envName) {
+        this.envName = envName;
     }
 
     public String getIpAddress() {
