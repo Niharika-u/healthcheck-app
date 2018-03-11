@@ -139,7 +139,7 @@ public class ServerHealthCheck {
 
     @Override
     public String toString() {
-        return String.format("ServerHealthCheck[healthCheckId=%s, componentName='%s', ipAddress='%s', applicationPort='%s', healthCheckUrl='%s', createdBy='%s', healthCheckCreatedAt='%s']",
-                healthCheckId, componentName, ipAddress, applicationPort, healthCheckUrl, createdBy, healthCheckCreatedAt);
+        return String.format("ServerHealthCheck[healthCheckId=%s, componentName='%s', envName='%s', ipAddress='%s', applicationPort='%s', healthCheckUrl='%s', createdBy='%s', healthCheckCreatedAt='%s']",
+                healthCheckId, componentName, envName, ipAddress, applicationPort, healthCheckUrl, createdBy, healthCheckCreatedAt);
     }
 }

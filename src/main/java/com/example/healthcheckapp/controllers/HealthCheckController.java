@@ -7,16 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Created by 212583997 on 3/3/2018.
  */
 @RestController
-@RequestMapping("/hcurl")
+@RequestMapping("/hcheck")
 @CrossOrigin("*")
 public class HealthCheckController {
 
@@ -35,13 +37,33 @@ public class HealthCheckController {
         //return healthCheckRepository.findAll();
     }
 
+    @PostMapping(value="/add")
+    public ServerHealthCheck addServerHealthCheck(@Valid @RequestBody ServerHealthCheck serverHealthCheck) {
+        return healthCheckRepository.save(serverHealthCheck);
+    }
+
     @DeleteMapping(value="/{hcid}")
-    public void deleteHealthcheckInfo(@PathVariable("hcid") String healthCheckId) {
-        healthCheckRepository.delete(healthCheckId);
+    public void deleteHealthcheckInfo(@PathVariable("hcid") String hcid) {
+        healthCheckRepository.delete(hcid);
     }
 
     @PutMapping(value="/{hcid}")
-    public ResponseEntity<ServerHealthCheck> updateHealthcheckData(@PathVariable("hcid") String healthCheckId) {
-        ServerHealthCheck
+    public ResponseEntity<ServerHealthCheck> updateHealthcheckData(@PathVariable("hcid") String hcid, @Valid @RequestBody ServerHealthCheck serverHealthCheckReq) {
+        ServerHealthCheck existingHealthCheckInfo = healthCheckRepository.findOne(hcid);
+        if(existingHealthCheckInfo == null){
+            return new ResponseEntity<ServerHealthCheck>(HttpStatus.NOT_FOUND);
+        }
+        existingHealthCheckInfo.setApplicationPort(serverHealthCheckReq.getApplicationPort());
+        existingHealthCheckInfo.setComponentName(serverHealthCheckReq.getComponentName());
+        existingHealthCheckInfo.setCreatedBy(serverHealthCheckReq.getCreatedBy());
+        existingHealthCheckInfo.setEnvName(serverHealthCheckReq.getEnvName());
+        existingHealthCheckInfo.setHealthCheckUrl(serverHealthCheckReq.getHealthCheckUrl());
+        existingHealthCheckInfo.setProjectName(serverHealthCheckReq.getProjectName());
+        existingHealthCheckInfo.setIpAddress(serverHealthCheckReq.getIpAddress());
+
+        ServerHealthCheck updatedHealthCheckInfo = healthCheckRepository.save(existingHealthCheckInfo);
+        return new ResponseEntity<ServerHealthCheck>(updatedHealthCheckInfo, HttpStatus.OK);
     }
+
+
 }

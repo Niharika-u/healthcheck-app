@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ProjectService } from './project.service';
+import { NgModule, Component, ViewChild, ViewContainerRef, ComponentFactoryResolver}  from '@angular/core';
+
+import { ProjectService } from './app-services/project.service';
+import { UtilService } from './app-services/util.service';
+import { HealthcheckService } from './app-services/healthcheck.service';
 
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
-
 import { AppComponent } from './app.component';
-
 import { ProjectAdminComponent } from './project-admin/project-admin.component';
 import { HealthcheckAdminComponent } from './healthcheck-admin/healthcheck-admin.component';
 import { HealthcheckDashboardComponent } from './healthcheck-dashboard/healthcheck-dashboard.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { AppRoutingModule } from './/app-routing.module';
     AppComponent,
     ProjectAdminComponent,
     HealthcheckAdminComponent,
-    HealthcheckDashboardComponent
+    HealthcheckDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,7 @@ import { AppRoutingModule } from './/app-routing.module';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ProjectService],
+  providers: [ProjectService, UtilService, HealthcheckService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

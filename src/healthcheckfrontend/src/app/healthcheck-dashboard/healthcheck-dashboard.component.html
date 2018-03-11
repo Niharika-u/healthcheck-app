@@ -3,3 +3,12 @@
     {{title}}!
   </h1>
 </div>
+
+<div>
+	<label>
+		SELECT ENVIRONMENT TYPE
+	</label>
+	<select name="envType" id="envId" ngModel required>
+		<option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>			
+	</select>
+</div>

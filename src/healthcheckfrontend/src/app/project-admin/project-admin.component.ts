@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Project } from '../project';
 import { NgForm } from '@angular/forms';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../app-services/project.service';
 
 @Component({
   selector: 'app-project-admin',
@@ -14,6 +14,7 @@ export class ProjectAdminComponent implements OnInit {
   newProject: Project = new Project();
   editing: boolean = false;
   editingProject: Project = new Project();
+
 
   constructor(
     private projectService: ProjectService,
