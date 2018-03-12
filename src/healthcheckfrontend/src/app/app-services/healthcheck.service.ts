@@ -19,8 +19,6 @@ export class HealthcheckService {
       .catch(this.handleError);
   }
 
-
-
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);
     return Promise.reject(error.message || error);
