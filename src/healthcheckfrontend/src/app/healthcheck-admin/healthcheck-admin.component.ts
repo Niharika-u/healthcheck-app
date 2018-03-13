@@ -16,7 +16,7 @@ export class HealthcheckAdminComponent implements OnInit {
   newHealthCheck: HealthCheck = new HealthCheck();
   editing: boolean = false;
   editingHealthCheck: HealthCheck = new HealthCheck();
-  envHCAdminTypes: Array<string>;
+  envTypes: Array<string>;
 
   constructor(
     private healthCheckService: HealthcheckService,
@@ -24,26 +24,33 @@ export class HealthcheckAdminComponent implements OnInit {
     ) {  }
 
   ngOnInit(): void {
-    this.envHCAdminTypes = this.utilService.envTypes;
+    this.envTypes = this.utilService.envTypes;
+    this.getHealthCheck();
   }  
 
   getHealthChecks(selectedEnv: string): void {
-    console.log(selectedEnv);
     this.healthCheckService.getHealthChecks(selectedEnv)
        .then(healthChecks => this.healthChecks = healthChecks );
-  }
+       
+ }
 
- /* createHealthCheck(addHealthCheckForm: NgForm): void {
-    this.healthCheckService.createHealthCheck(this.newHealthCheck)
-      .then(createHealthCheck => {
-        addHealthCheckForm.reset();
+ getHealthCheck(): void {
+    this.healthCheckService.getHealthCheck()
+       .then(healthChecks => this.healthChecks = healthChecks );
+       
+ }
+
+ addHealthcheck(newhcdetail: NgForm): void {
+    this.healthCheckService.addHealthcheck(newhcdetail.value)
+      .then(addHealthcheck => {
+        newhcdetail.reset();
         this.newHealthCheck = new HealthCheck();
-        this.healthChecks.unshift(createHealthCheck);
+        this.healthChecks.unshift(addHealthcheck);
       });
   }
 
-  deleteHealthCheck(healthCheckId: string): void {
-    this.healthCheckService.deleteHealthCheck(healthCheckId)
+  deleteHealthcheckData(healthCheckId: string): void {
+    this.healthCheckService.deleteHealthcheckData(healthCheckId)
       .then(() => {
         this.healthChecks = this.healthChecks.filter(healthcheck => healthcheck.healthCheckId != healthCheckId);
       });
@@ -69,6 +76,6 @@ export class HealthcheckAdminComponent implements OnInit {
     this.editingHealthCheck = new HealthCheck();
     this.editing = false;
   }
-  */
+  
 }
 

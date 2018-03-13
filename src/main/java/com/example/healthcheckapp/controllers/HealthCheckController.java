@@ -29,12 +29,16 @@ public class HealthCheckController {
     MongoTemplate mongoTemplate;
 
     @GetMapping(value="/{env}")
-    public List<ServerHealthCheck> getAllHealthchksByEnv(@PathVariable("env") String env) {
+    public List<ServerHealthCheck> getAllHealthchecksByEnv(@PathVariable("env") String env) {
         Query query = new Query();
         query.addCriteria(Criteria.where("envName").is(env));
         List<ServerHealthCheck> listOfServerHealthChecks = mongoTemplate.find(query, ServerHealthCheck.class);
         return listOfServerHealthChecks;
-        //return healthCheckRepository.findAll();
+    }
+
+    @GetMapping(value="/all")
+    public List<ServerHealthCheck> getAllHealthchecks() {
+        return healthCheckRepository.findAll();
     }
 
     @PostMapping(value="/add")
@@ -42,9 +46,9 @@ public class HealthCheckController {
         return healthCheckRepository.save(serverHealthCheck);
     }
 
-    @DeleteMapping(value="/{hcid}")
-    public void deleteHealthcheckInfo(@PathVariable("hcid") String hcid) {
-        healthCheckRepository.delete(hcid);
+    @DeleteMapping(value="/delete/{healthCheckId}")
+    public void deleteHealthcheck(@PathVariable("healthCheckId") String healthCheckId) {
+        healthCheckRepository.delete(healthCheckId);
     }
 
     @PutMapping(value="/{hcid}")

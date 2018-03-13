@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Date;
 
 /**
@@ -14,7 +17,8 @@ import java.util.Date;
 public class ServerHealthCheck {
 
     @Id
-    private int healthCheckId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String healthCheckId;
 
     @NotBlank
     private String componentName;
@@ -33,7 +37,6 @@ public class ServerHealthCheck {
     @NotBlank
     private String healthCheckUrl;
 
-    @NotBlank
     private String createdBy;
 
     private Date healthCheckCreatedAt = new Date();
@@ -65,11 +68,11 @@ public class ServerHealthCheck {
         this.createdBy = createdBy;
     }
 
-    public int getHealthCheckId() {
+    public String getHealthCheckId() {
         return healthCheckId;
     }
 
-    public void setHealthCheckId(int healthCheckId) {
+    public void setHealthCheckId(String healthCheckId) {
         this.healthCheckId = healthCheckId;
     }
 
