@@ -1,10 +1,8 @@
 package com.example.healthcheckapp.models;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.Date;
@@ -30,9 +28,11 @@ public class ServerHealthCheck {
     @NotBlank
     private String ipAddress;
 
-
     @NotBlank
     private String applicationPort;
+
+    @NotBlank
+    private String healthCheckPort;
 
     @NotBlank
     private String healthCheckUrl;
@@ -44,27 +44,32 @@ public class ServerHealthCheck {
     @NotBlank
     public String envName;
 
+    private Boolean serverStatus;
+
     public ServerHealthCheck(){
         super();
     }
 
-    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckUrl){
+    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckPort, String healthCheckUrl, Boolean serverStatus){
         this.projectName = projectName;
         this.envName = envName;
         this.componentName = componentName;
         this.ipAddress = ipAddress;
         this.applicationPort = applicationPort;
+        this.healthCheckPort = healthCheckPort;
         this.healthCheckUrl = healthCheckUrl;
-
+        this.serverStatus = serverStatus;
     }
 
-    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckUrl, String createdBy){
+    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckPort, String healthCheckUrl, Boolean serverStatus, String createdBy){
         this.projectName = projectName;
         this.envName = envName;
         this.componentName = componentName;
         this.ipAddress = ipAddress;
         this.applicationPort = applicationPort;
+        this.healthCheckPort = healthCheckPort;
         this.healthCheckUrl = healthCheckUrl;
+        this.serverStatus = serverStatus;
         this.createdBy = createdBy;
     }
 
@@ -108,6 +113,14 @@ public class ServerHealthCheck {
         this.applicationPort = applicationPort;
     }
 
+    public String getHealthCheckPort() {
+        return healthCheckPort;
+    }
+
+    public void setHealthCheckPort(String healthCheckPort) {
+        this.healthCheckPort = healthCheckPort;
+    }
+
     public String getHealthCheckUrl() {
         return healthCheckUrl;
     }
@@ -122,6 +135,14 @@ public class ServerHealthCheck {
 
     public void setHealthCheckUrl(String healthCheckUrl) {
         this.healthCheckUrl = healthCheckUrl;
+    }
+
+    public Boolean getServerStatus() {
+        return serverStatus;
+    }
+
+    public void setServerStatus(Boolean serverStatus) {
+        this.serverStatus = serverStatus;
     }
 
     public String getCreatedBy() {
@@ -142,7 +163,7 @@ public class ServerHealthCheck {
 
     @Override
     public String toString() {
-        return String.format("ServerHealthCheck[healthCheckId=%s, componentName='%s', envName='%s', ipAddress='%s', applicationPort='%s', healthCheckUrl='%s', createdBy='%s', healthCheckCreatedAt='%s']",
-                healthCheckId, componentName, envName, ipAddress, applicationPort, healthCheckUrl, createdBy, healthCheckCreatedAt);
+        return String.format("ServerHealthCheck[healthCheckId=%s, componentName='%s', envName='%s', ipAddress='%s', applicationPort='%s', healthCheckPort='%s', healthCheckUrl='%s', serverStatus='%s', createdBy='%s', healthCheckCreatedAt='%s']",
+                healthCheckId, componentName, envName, ipAddress, applicationPort, healthCheckPort, healthCheckUrl, serverStatus, createdBy, healthCheckCreatedAt);
     }
 }
