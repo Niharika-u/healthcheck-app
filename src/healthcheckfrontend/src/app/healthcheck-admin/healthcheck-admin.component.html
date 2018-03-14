@@ -13,7 +13,7 @@
       <div class="col-3">
         <div class="btn-group dropdown">
           <button type="button" class="btn btn-secondary">Select Environment</button>
-          <select class = "custom-select" name="envName" id="envId" [ngModel]="editingHealthCheck.envName" required >
+          <select class = "custom-select" id="envId" name="envName" [ngModel]="editingHealthCheck.envName" required >
             <option *ngFor="let envName of envTypes" [value]="envName">{{envName}}</option>
           </select>
         </div>
@@ -87,17 +87,24 @@
     </tr>
   </thead>
   <tbody>
-   <tr scope="row" *ngFor="let healthcheck of filteredHealthCheck" >
-    <td>{{healthcheck.projectName}}</td>
-    <td>{{healthcheck.envName}}</td>
-    <td>{{healthcheck.componentName}}</td>
-    <td>{{healthcheck.ipAddress}}</td>
-    <td>{{healthcheck.applicationPort}}</td>
-    <td>{{healthcheck.healthCheckPort}}</td>
-    <!-- <td>{{healthcheck.healthCheckUrl}}</td>
-    <td>{{healthcheck.healthCheckId}}</td> -->
-    <td><a (click)="editHealthCheck(healthcheck)"><i class="material-icons edit">edit</i></a></td>
-    <td><a (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons">delete</i></a></td>
-  </tr>
-</tbody>
+    <ng-container *ngIf="filteredHealthCheck.length == 0">
+      <tr scope="row">
+        <td>NO DATA FOUND</td>
+      </tr>
+    </ng-container>
+    <ng-container>
+      <tr scope="row" *ngFor="let healthcheck of filteredHealthCheck" >
+        <td>{{healthcheck.projectName}}</td>
+        <td>{{healthcheck.envName}}</td>
+        <td>{{healthcheck.componentName}}</td>
+        <td>{{healthcheck.ipAddress}}</td>
+        <td>{{healthcheck.applicationPort}}</td>
+        <td>{{healthcheck.healthCheckPort}}</td>
+        <!-- <td>{{healthcheck.healthCheckUrl}}</td>
+        <td>{{healthcheck.healthCheckId}}</td> -->
+        <td><a (click)="editHealthCheck(healthcheck)"><i class="material-icons edit">edit</i></a></td>
+        <td><a (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons">delete</i></a></td>
+      </tr>
+    </ng-container>
+  </tbody>  
 </table>

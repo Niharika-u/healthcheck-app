@@ -59,6 +59,7 @@ export class HealthcheckService {
   }
 
   updateHealthCheck(healthcheckData: HealthCheck): Promise<HealthCheck> {
+    console.log(healthcheckData);
     return this.http.put(this.baseUrl + '/hcheck/' + healthcheckData.healthCheckId, healthcheckData)
       .toPromise()
       .then(response => response.json() as HealthCheck)

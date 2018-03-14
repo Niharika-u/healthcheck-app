@@ -22,7 +22,7 @@ import { Headers, Http } from '@angular/http';
 
 export class HealthcheckDashboardComponent implements OnInit {
   healthChecks: HealthCheck[];
-  title = 'HealthCheck DashBoard';
+  //title = 'HealthCheck DashBoard';
   envTypes: Array<string>;
   uniqueProjectNames: string[] = [];
   healthCheckById: HealthCheck = new HealthCheck();

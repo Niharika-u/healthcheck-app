@@ -36,13 +36,12 @@ export class HealthcheckAdminComponent implements OnInit {
   getHealthChecks(selectedEnv: string): void {
     this.selectedEnviornment = selectedEnv;
     this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
-    .then(healthChecks => this.filteredHealthCheck = healthChecks );
-
+    .then(healthChecks => this.filteredHealthCheck = healthChecks);
   }
 
   getAllHealthCheck(): void {
     this.healthCheckService.getAllHealthCheck()
-    .then(healthChecks => this.healthChecks = healthChecks );
+    .then(healthChecks => this.healthChecks = healthChecks);
 
   }
 
