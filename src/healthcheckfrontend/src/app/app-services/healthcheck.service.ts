@@ -14,17 +14,24 @@ export class HealthcheckService {
   constructor(
     private http: Http) { }
 
-  getHealthChecks(envType: string): Promise<HealthCheck[]> {
+  getHealthChecksForAnEnv(envType: string): Promise<HealthCheck[]> {
     return this.http.get(this.baseUrl + '/hcheck/' + envType)
       .toPromise()
       .then(response => response.json() as HealthCheck[])
       .catch(this.handleError);
   }
 
-  getHealthCheck(): Promise<HealthCheck[]> {
+  getAllHealthCheck(): Promise<HealthCheck[]> {
     return this.http.get(this.baseUrl + '/hcheck/all')
       .toPromise()
       .then(response => response.json() as HealthCheck[])
+      .catch(this.handleError);
+  }
+
+  getHealthCheckById(hcheckId: string): Promise<HealthCheck> {
+    return this.http.get(this.baseUrl + '/hcheck/' + hcheckId)
+      .toPromise()
+      .then(response => response.json() as HealthCheck)
       .catch(this.handleError);
   }
 

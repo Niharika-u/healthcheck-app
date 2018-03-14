@@ -6,7 +6,7 @@
 
   <div class="btn-group dropdown">
     <button type="button" class="btn btn-secondary">Select Application Environment</button>
-    <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecks($event)">  
+    <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecksForAnEnv($event)">  
       <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>			
     </select>
   </div>

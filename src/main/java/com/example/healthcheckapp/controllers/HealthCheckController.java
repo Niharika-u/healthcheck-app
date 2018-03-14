@@ -2,6 +2,7 @@ package com.example.healthcheckapp.controllers;
 
 import com.example.healthcheckapp.models.ServerHealthCheck;
 import com.example.healthcheckapp.repositories.HealthCheckRepository;
+import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -34,6 +35,14 @@ public class HealthCheckController {
         query.addCriteria(Criteria.where("envName").is(env));
         List<ServerHealthCheck> listOfServerHealthChecks = mongoTemplate.find(query, ServerHealthCheck.class);
         return listOfServerHealthChecks;
+    }
+
+    @GetMapping(value="/{hcheckId}")
+    public ServerHealthCheck getHealthCheckForAnHealthCheckId(@PathVariable("hcheckId") String hcheckId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("healthCheckId").is(hcheckId));
+        ServerHealthCheck desiredHealthCheck = mongoTemplate.findOne(query, ServerHealthCheck.class);
+        return desiredHealthCheck;
     }
 
     @GetMapping(value="/all")

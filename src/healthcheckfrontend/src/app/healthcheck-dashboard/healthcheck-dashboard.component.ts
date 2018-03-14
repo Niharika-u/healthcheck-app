@@ -23,6 +23,7 @@ export class HealthcheckDashboardComponent implements OnInit {
   title = 'HealthCheck DashBoard';
   envTypes: Array<string>;
   uniqueProjectNames: string[] = [];
+  healthCheckById: HealthCheck = new HealthCheck();
 
   constructor(
   	private healthCheckService: HealthcheckService,
@@ -33,7 +34,7 @@ export class HealthcheckDashboardComponent implements OnInit {
   }
 
   getHealthChecks(selectedEnv: string): void {
-    this.healthCheckService.getHealthChecks(selectedEnv)
+    this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
     .then(healthChecks => this.healthChecks = healthChecks ) 
     .then(() => {
       for(let healthCheck of this.healthChecks){
@@ -41,5 +42,10 @@ export class HealthcheckDashboardComponent implements OnInit {
       }
       this.uniqueProjectNames = Array.from(new Set(this.uniqueProjectNames));
     });
+  }
+
+  getHealthCheckByHealthCheckId(healthCheckId: string): void {
+    this.healthCheckService.getHealthCheckById(healthCheckId)
+    .then(healthCheckById => this.healthCheckById = healthCheckById);
   }
 }
