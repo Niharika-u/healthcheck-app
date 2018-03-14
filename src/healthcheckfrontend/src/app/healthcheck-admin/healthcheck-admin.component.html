@@ -30,7 +30,7 @@
         <input type="text" class="form-control" name="applicationPort" id="applicationPort" ngModel placeholder="Application Port" [(ngModel)]="editingHealthCheck.applicationPort">
       </div>
       <div class="col-3">
-        <input type="text" class="form-control" name="healthCheckPort" id="healthCheckPort" ngModel placeholder="HealthCheck Port" [(ngModel)]="editingHealthCheck.healthcheckPort">
+        <input type="text" class="form-control" name="healthCheckPort" id="healthCheckPort" ngModel placeholder="HealthCheck Port" [(ngModel)]="editingHealthCheck.healthCheckPort">
       </div>      
     </div>
     <div class="form-row pb-2">
@@ -87,7 +87,7 @@
     </tr>
   </thead>
   <tbody>
-   <tr scope="row" *ngFor="let healthcheck of healthChecks" >
+   <tr scope="row" *ngFor="let healthcheck of filteredHealthCheck" >
     <td>{{healthcheck.projectName}}</td>
     <td>{{healthcheck.envName}}</td>
     <td>{{healthcheck.componentName}}</td>

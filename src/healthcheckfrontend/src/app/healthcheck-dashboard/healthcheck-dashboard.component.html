@@ -10,7 +10,7 @@
       <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>			
     </select>
   </div>
-
+<!-- 
   <ul class="list-group" style="text-align:center">
     <div class="card" *ngFor="let uniqueProjectName of uniqueProjectNames">
       <div class="card-body">
@@ -26,12 +26,40 @@
                 <span class="badge badge-danger">Server Is Down</span>
               </div>
               <p class="card-text">
-                 APPLICATION URL: http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}
-                 <br/>HEALTHCHECK URL: http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}{{healthcheck.healthCheckUrl}}                
-              </p>            
-            </li>
-          </div>
-        </div>
-      </div>
-    </div>    
-  </ul>
+               APPLICATION URL: http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}
+               <br/>HEALTHCHECK URL: http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}{{healthcheck.healthCheckUrl}}                
+             </p>            
+           </li>
+         </div>
+       </div>
+     </div>
+   </div>    
+ </ul> -->
+ <br>
+ <span class="pt-5 pb-5">&nbsp;</span>
+ <table class="table table-lg-responsive table-striped" *ngFor="let uniqueProjectName of uniqueProjectNames">
+  <thead>
+    <tr bgcolor="#717175">
+      <th><font color="#fff">{{uniqueProjectName}}</font></th>
+    </tr>
+    <tr>
+      <th class="card-text">Component Name</th>
+      <th class="card-text">Application Url</th>
+      <th class="card-text">Healthcheck Url</th>
+      <th class="card-text">Status</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let healthcheck of healthChecks">
+    <tr scope="row" *ngIf="healthcheck.projectName == uniqueProjectName">
+    <td class="card-subtitle mb-2 text-muted">{{healthcheck.componentName}}</td>
+    <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}{{healthcheck.healthCheckUrl}}</td>
+    <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}</td>
+    <td><div *ngIf="healthcheck.serverStatus == true" class="blink_me">
+      <span class="badge badge-success">Server Is UP</span>
+    </div>
+    <div *ngIf="healthcheck.serverStatus == false || healthcheck.serverStatus == null" class="blink_me">
+      <span class="badge badge-danger">Server Is Down</span>
+    </div></td>
+  </tr>
+</tbody>
+</table>

@@ -13,11 +13,13 @@ import { ProjectService } from '../app-services/project.service';
 
 export class HealthcheckAdminComponent implements OnInit {
   healthChecks: HealthCheck[];
+  filteredHealthCheck: Array<HealthCheck> = [];
   projects: Object[];
   newHealthCheck: HealthCheck = new HealthCheck();
   editing: boolean = false;
   editingHealthCheck: HealthCheck = new HealthCheck();
   envTypes: Array<string>;
+  selectedEnviornment: string;
 
   constructor(
     private healthCheckService: HealthcheckService,
@@ -32,43 +34,41 @@ export class HealthcheckAdminComponent implements OnInit {
   }
 
   getHealthChecks(selectedEnv: string): void {
+    this.selectedEnviornment = selectedEnv;
     this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
-       .then(healthChecks => this.healthChecks = healthChecks );
-       
- }
+    .then(healthChecks => this.filteredHealthCheck = healthChecks );
 
- getAllHealthCheck(): void {
+  }
+
+  getAllHealthCheck(): void {
     this.healthCheckService.getAllHealthCheck()
-       .then(healthChecks => this.healthChecks = healthChecks );
-       
- }
+    .then(healthChecks => this.healthChecks = healthChecks );
 
- addHealthcheck(newhcdetail: NgForm): void {
-   console.log(newhcdetail.value);
+  }
+
+  addHealthcheck(newhcdetail: NgForm, selectedEnv): void {
     this.healthCheckService.addHealthcheck(newhcdetail.value)
-      .then(addHealthcheck => {
-        newhcdetail.reset();
-        this.newHealthCheck = new HealthCheck();
-        this.healthChecks.unshift(addHealthcheck);
-      });
+    .then(addHealthcheck => {
+      newhcdetail.reset();
+      this.newHealthCheck = new HealthCheck();
+      this.healthChecks.unshift(addHealthcheck);
+    });
   }
 
   deleteHealthcheckData(healthCheckId: string): void {
     this.healthCheckService.deleteHealthcheckData(healthCheckId)
-      .then(() => {
-        this.healthChecks = this.healthChecks.filter(healthcheck => healthcheck.healthCheckId != healthCheckId);
-      });
+    .then(() => {
+      this.healthChecks = this.healthChecks.filter(healthcheck => healthcheck.healthCheckId != healthCheckId);
+    });
   }
 
   updateHealthCheck(healthCheckData: HealthCheck): void {
-    console.log("Data:");
-    console.log(healthCheckData);
     this.healthCheckService.updateHealthCheck(healthCheckData)
-      .then(updateHealthCheck => {
-        let existingHealthCheck = this.healthChecks.find(healthcheck => healthcheck.healthCheckId === updateHealthCheck.healthCheckId);
-        Object.assign(existingHealthCheck, updateHealthCheck);
-        this.clearEditing();
-      })
+    .then(updateHealthCheck => {
+      let existingHealthCheck = this.healthChecks.find(healthcheck => healthcheck.healthCheckId === updateHealthCheck.healthCheckId);
+      Object.assign(existingHealthCheck, updateHealthCheck);
+      this.clearEditing();
+    })
   }
 
   editHealthCheck(healthCheckData: HealthCheck): void {
@@ -84,8 +84,18 @@ export class HealthcheckAdminComponent implements OnInit {
 
   getProjects(): void {
     this.projectService.getProjects()
-      .then(projects => this.projects = projects );
+    .then(projects => this.projects = projects );
   }
   
+  isDisplay(): void {
+    this.healthChecks.forEach(eachObj => {
+      if(eachObj.envName === this.selectedEnviornment)
+      {
+        this.filteredHealthCheck.push(eachObj);
+      }
+    });
+
+    this.filteredHealthCheck = Array.from(new Set(this.filteredHealthCheck));
+  } 
 }
 
