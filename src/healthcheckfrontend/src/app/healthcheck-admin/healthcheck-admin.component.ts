@@ -3,7 +3,7 @@ import { HealthCheck } from '../healthcheck';
 import { NgForm } from '@angular/forms';
 import { HealthcheckService } from '../app-services/healthcheck.service';
 import { UtilService } from '../app-services/util.service';
-
+import { ProjectService } from '../app-services/project.service';
 
 @Component({
   selector: 'app-healthcheck-admin',
@@ -13,6 +13,7 @@ import { UtilService } from '../app-services/util.service';
 
 export class HealthcheckAdminComponent implements OnInit {
   healthChecks: HealthCheck[];
+  projects: Object[];
   newHealthCheck: HealthCheck = new HealthCheck();
   editing: boolean = false;
   editingHealthCheck: HealthCheck = new HealthCheck();
@@ -21,26 +22,29 @@ export class HealthcheckAdminComponent implements OnInit {
   constructor(
     private healthCheckService: HealthcheckService,
     private utilService: UtilService,
+    private projectService: ProjectService
     ) {  }
 
   ngOnInit(): void {
     this.envTypes = this.utilService.envTypes;
-    this.getAllHealthCheck();
-  }  
+    this.getHealthCheck();
+    this.getProjects();
+  }
 
   getHealthChecks(selectedEnv: string): void {
-    this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
+    this.healthCheckService.getHealthChecks(selectedEnv)
        .then(healthChecks => this.healthChecks = healthChecks );
        
  }
 
- getAllHealthCheck(): void {
-    this.healthCheckService.getAllHealthCheck()
+ getHealthCheck(): void {
+    this.healthCheckService.getHealthCheck()
        .then(healthChecks => this.healthChecks = healthChecks );
        
  }
 
  addHealthcheck(newhcdetail: NgForm): void {
+   console.log(newhcdetail.value);
     this.healthCheckService.addHealthcheck(newhcdetail.value)
       .then(addHealthcheck => {
         newhcdetail.reset();
@@ -57,6 +61,7 @@ export class HealthcheckAdminComponent implements OnInit {
   }
 
   updateHealthCheck(healthCheckData: HealthCheck): void {
+    console.log("Data:");
     console.log(healthCheckData);
     this.healthCheckService.updateHealthCheck(healthCheckData)
       .then(updateHealthCheck => {
@@ -75,6 +80,11 @@ export class HealthcheckAdminComponent implements OnInit {
   clearEditing(): void {
     this.editingHealthCheck = new HealthCheck();
     this.editing = false;
+  }
+
+  getProjects(): void {
+    this.projectService.getProjects()
+      .then(projects => this.projects = projects );
   }
   
 }

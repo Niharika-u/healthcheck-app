@@ -3,7 +3,12 @@
   <form #newhcdetail="ngForm" (ngSubmit)="addHealthcheck(newhcdetail)">
     <div class="form-row pb-2">
       <div class="col-3">
-        <input type="text" name="projectName" class="form-control" id="projectName" ngModel placeholder="Project Name" [(ngModel)]="editingHealthCheck.projectName">
+        <div class="btn-group dropdown">
+          <button type="button" class="btn btn-secondary">Select Project</button>
+          <select class = "custom-select" name="projectName" id="envId" [ngModel]="editingHealthCheck.projectName" required >
+            <option *ngFor="let projectName of projects" [value]="projectName.projectName">{{projectName.projectName}}</option>
+          </select>
+        </div>
       </div>
       <div class="col-3">
         <div class="btn-group dropdown">
@@ -58,7 +63,7 @@
 <hr>
 <div class="btn-group dropdown pt-5 pb-3">
   <button type="button" class="btn btn-secondary">Select Application Environment</button>
-  <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecksForAnEnv($event)">  
+  <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecks($event)">  
     <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>
   </select>
 </div>
