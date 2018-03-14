@@ -10,5 +10,5 @@ import java.util.List;
 public interface HealthCheckStatusService {
 
     //  Server health-checks need to be updated
-    public void updateServerStatusForHealthChecks(List<ServerHealthCheck> healthCheckList);
+    public Boolean updateServerStatusForHealthChecks(ServerHealthCheck healthCheckList);
 }

@@ -52,8 +52,8 @@
   <tbody *ngFor="let healthcheck of healthChecks">
     <tr scope="row" *ngIf="healthcheck.projectName == uniqueProjectName">
     <td class="card-subtitle mb-2 text-muted">{{healthcheck.componentName}}</td>
-    <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}{{healthcheck.healthCheckUrl}}</td>
-    <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}</td>
+    <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}{{healthcheck.healthCheckUrl}}</td>
+    <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}</td>
     <td><div *ngIf="healthcheck.serverStatus == true" class="blink_me">
       <span class="badge badge-success">Server Is UP</span>
     </div>

@@ -2,6 +2,7 @@ package com.example.healthcheckapp.controllers;
 
 import com.example.healthcheckapp.models.ServerHealthCheck;
 import com.example.healthcheckapp.repositories.HealthCheckRepository;
+import com.example.healthcheckapp.services.HealthCheckStatusService;
 import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,9 +22,17 @@ import java.util.List;
  * Created by 212583997 on 3/3/2018.
  */
 @RestController
+@EnableScheduling
 @RequestMapping("/hcheck")
 @CrossOrigin("*")
 public class HealthCheckController {
+
+    private HealthCheckStatusService healthCheckStatusService;
+
+    @Autowired
+    public HealthCheckController(HealthCheckStatusService healthCheckStatusService) {
+        this.healthCheckStatusService = healthCheckStatusService;
+    }
 
     @Autowired
     HealthCheckRepository healthCheckRepository;
@@ -46,12 +57,27 @@ public class HealthCheckController {
     }
 
     @GetMapping(value="/all")
-    public List<ServerHealthCheck> getAllHealthchecks() {
+    @Scheduled(fixedRate = 6000)
+    public List<ServerHealthCheck> getAllHealthchecks()
+    {
+        List<ServerHealthCheck> listOfHealthChecks = healthCheckRepository.findAll();
+        boolean preVerificationServerStatus = false, postVerificationServerStatus = false;
+        for(ServerHealthCheck healthCheck : listOfHealthChecks) {
+            preVerificationServerStatus = healthCheck.getServerStatus();
+            postVerificationServerStatus = healthCheckStatusService.updateServerStatusForHealthChecks(healthCheck);
+            if(preVerificationServerStatus != postVerificationServerStatus){
+                healthCheck.setServerStatus(postVerificationServerStatus);
+                healthCheckRepository.save(healthCheck);
+            }
+        }
         return healthCheckRepository.findAll();
     }
 
     @PostMapping(value="/add")
     public ServerHealthCheck addServerHealthCheck(@Valid @RequestBody ServerHealthCheck serverHealthCheck) {
+        //  Setting the server status as false at the time of addtion as a default mechanism
+        if(serverHealthCheck.getServerStatus() == null)
+            serverHealthCheck.setServerStatus(false);
         return healthCheckRepository.save(serverHealthCheck);
     }
 
