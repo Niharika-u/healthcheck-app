@@ -27,18 +27,18 @@ export class HealthcheckAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.envTypes = this.utilService.envTypes;
-    this.getHealthCheck();
+    this.getAllHealthCheck();
     this.getProjects();
   }
 
   getHealthChecks(selectedEnv: string): void {
-    this.healthCheckService.getHealthChecks(selectedEnv)
+    this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
        .then(healthChecks => this.healthChecks = healthChecks );
        
  }
 
- getHealthCheck(): void {
-    this.healthCheckService.getHealthCheck()
+ getAllHealthCheck(): void {
+    this.healthCheckService.getAllHealthCheck()
        .then(healthChecks => this.healthChecks = healthChecks );
        
  }

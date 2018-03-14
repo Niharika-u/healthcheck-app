@@ -7,4 +7,5 @@ export class HealthCheck {
   applicationPort: string;
   healthcheckPort: string;
   healthCheckUrl: string;
+  serverStatus: string;
 }

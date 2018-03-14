@@ -30,10 +30,13 @@
         <input type="text" class="form-control" name="applicationPort" id="applicationPort" ngModel placeholder="Application Port" [(ngModel)]="editingHealthCheck.applicationPort">
       </div>
       <div class="col-3">
-        <input type="text" class="form-control" name ="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
-      </div>
+        <input type="text" class="form-control" name="healthCheckPort" id="healthCheckPort" ngModel placeholder="HealthCheck Port" [(ngModel)]="editingHealthCheck.healthcheckPort">
+      </div>      
     </div>
     <div class="form-row pb-2">
+      <div class="col-3">
+        <input type="text" class="form-control" name ="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
+      </div>
       <div class="col-3">
         <input type="text" class="form-control" name ="createdBy" id="createdBy" ngModel placeholder="Created by" [(ngModel)]="editingHealthCheck.createdBy">
       </div>

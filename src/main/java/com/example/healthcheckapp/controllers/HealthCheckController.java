@@ -29,7 +29,7 @@ public class HealthCheckController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @GetMapping(value="/{env}")
+    @GetMapping(value="/env/{env}")
     public List<ServerHealthCheck> getAllHealthchecksByEnv(@PathVariable("env") String env) {
         Query query = new Query();
         query.addCriteria(Criteria.where("envName").is(env));
@@ -37,7 +37,7 @@ public class HealthCheckController {
         return listOfServerHealthChecks;
     }
 
-    @GetMapping(value="/{hcheckId}")
+    @GetMapping(value="/id/{hcheckId}")
     public ServerHealthCheck getHealthCheckForAnHealthCheckId(@PathVariable("hcheckId") String hcheckId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("healthCheckId").is(hcheckId));
@@ -67,6 +67,8 @@ public class HealthCheckController {
             return new ResponseEntity<ServerHealthCheck>(HttpStatus.NOT_FOUND);
         }
         existingHealthCheckInfo.setApplicationPort(serverHealthCheckReq.getApplicationPort());
+        existingHealthCheckInfo.setHealthCheckPort(serverHealthCheckReq.getHealthCheckPort());
+        existingHealthCheckInfo.setServerStatus(serverHealthCheckReq.getServerStatus());
         existingHealthCheckInfo.setComponentName(serverHealthCheckReq.getComponentName());
         existingHealthCheckInfo.setCreatedBy(serverHealthCheckReq.getCreatedBy());
         existingHealthCheckInfo.setEnvName(serverHealthCheckReq.getEnvName());

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HealthCheck } from '../healthcheck';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class HealthcheckService {
@@ -15,7 +16,7 @@ export class HealthcheckService {
     private http: Http) { }
 
   getHealthChecksForAnEnv(envType: string): Promise<HealthCheck[]> {
-    return this.http.get(this.baseUrl + '/hcheck/' + envType)
+    return this.http.get(this.baseUrl + '/hcheck/env/' + envType)
       .toPromise()
       .then(response => response.json() as HealthCheck[])
       .catch(this.handleError);
@@ -29,11 +30,21 @@ export class HealthcheckService {
   }
 
   getHealthCheckById(hcheckId: string): Promise<HealthCheck> {
-    return this.http.get(this.baseUrl + '/hcheck/' + hcheckId)
+    return this.http.get(this.baseUrl + '/hcheck/id/' + hcheckId)
       .toPromise()
       .then(response => response.json() as HealthCheck)
       .catch(this.handleError);
   }
+
+/*  private getHealthCheckStatus(hcheckId: string): void{
+    Observable.interval(5000)
+      .switchMap(() => this.http.get(this.baseUrl + '/hcheck/id' + hcheckId))
+      .map((data) => data.json().Data)
+      .subscribe(
+        (data) => {
+          console.log(data);
+        })
+  }*/
 
  addHealthcheck(healthcheckData: HealthCheck): Promise<HealthCheck> {
     return this.http.post(this.baseUrl + '/hcheck/add', healthcheckData)

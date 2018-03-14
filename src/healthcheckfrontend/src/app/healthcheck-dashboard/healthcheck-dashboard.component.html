@@ -6,7 +6,7 @@
 
   <div class="btn-group dropdown">
     <button type="button" class="btn btn-secondary">Select Application Environment</button>
-    <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecksForAnEnv($event)">  
+    <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecksByEnv($event)">  
       <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>			
     </select>
   </div>
@@ -19,8 +19,12 @@
           <div *ngIf="healthcheck.projectName == uniqueProjectName">
             <li class="list-group-item">
               <h6 class="card-subtitle mb-2 text-muted">{{healthcheck.componentName}}</h6>
-              <span class="badge badge-success">Server Is UP</span>
-              <span class="badge badge-danger">Server Is Down</span>
+              <div *ngIf="healthcheck.serverStatus == true" class="blink_me">
+                <span class="badge badge-success">Server Is UP</span>
+              </div>
+              <div *ngIf="healthcheck.serverStatus == false || healthcheck.serverStatus == null" class="blink_me">
+                <span class="badge badge-danger">Server Is Down</span>
+              </div>
               <p class="card-text">
                  APPLICATION URL: http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}
                  <br/>HEALTHCHECK URL: http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}{{healthcheck.healthCheckUrl}}                

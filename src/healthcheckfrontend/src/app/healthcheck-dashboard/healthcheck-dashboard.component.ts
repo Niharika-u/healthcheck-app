@@ -7,6 +7,8 @@ import { HealthCheck } from '../healthcheck';
 import { ProjectService } from '../app-services/project.service';
 import { Project } from '../project';
 import { NgModule }  from '@angular/core';
+import { Headers, Http } from '@angular/http';
+
 
 @Component({
   selector: 'app-healthcheck-dashboard',
@@ -27,13 +29,22 @@ export class HealthcheckDashboardComponent implements OnInit {
 
   constructor(
   	private healthCheckService: HealthcheckService,
-    private utilService: UtilService) {  }
+    private utilService: UtilService,
+    private http: Http) {  
+
+    /*Observable.interval(10000)
+    .switchMap(() => this.healthCheckService.getAllHealthCheck()).map((data) => data)
+      .subscribe((data) => {
+        this.healthChecks=data;
+        console.log(data);
+      })*/
+  }
 
   ngOnInit() {
   	this.envTypes = this.utilService.envTypes;
   }
 
-  getHealthChecks(selectedEnv: string): void {
+  getHealthChecksByEnv(selectedEnv: string): void {
     this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
     .then(healthChecks => this.healthChecks = healthChecks ) 
     .then(() => {
