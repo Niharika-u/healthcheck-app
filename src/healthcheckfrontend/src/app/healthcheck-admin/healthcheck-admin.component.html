@@ -56,7 +56,13 @@
         ng-show="addListing"
         *ngIf="editing">Save
       </button>
-     
+     <button
+        class="btn btn-primary listing-button"
+        type="button"
+        (click)="clearEditing()"
+        ng-show="addListing">
+        Clear
+      </button>
     </div>
 
   </div>
@@ -98,7 +104,7 @@
         <td>{{healthcheck.ipAddress}}</td>
         <td>{{healthcheck.applicationPort}}</td>
         <td>{{healthcheck.healthCheckPort}}</td>
-        <td><a (click)="editHealthCheck(healthcheck)"><i class="material-icons edit">edit</i></a></td>
+        <td><a (click)="editHealthCheck(healthcheck)"><i class="docScroller material-icons edit">edit</i></a></td>
         <td><a (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons">delete</i></a></td>
       </tr>
     </ng-container>

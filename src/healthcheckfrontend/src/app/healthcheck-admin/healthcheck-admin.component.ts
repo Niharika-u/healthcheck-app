@@ -24,7 +24,7 @@ export class HealthcheckAdminComponent implements OnInit {
   constructor(
     private healthCheckService: HealthcheckService,
     private utilService: UtilService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
     ) {  }
 
   ngOnInit(): void {
@@ -85,16 +85,5 @@ export class HealthcheckAdminComponent implements OnInit {
     this.projectService.getProjects()
     .then(projects => this.projects = projects );
   }
-  
-  isDisplay(): void {
-    this.healthChecks.forEach(eachObj => {
-      if(eachObj.envName === this.selectedEnviornment)
-      {
-        this.filteredHealthCheck.push(eachObj);
-      }
-    });
-
-    this.filteredHealthCheck = Array.from(new Set(this.filteredHealthCheck));
-  } 
 }
 
