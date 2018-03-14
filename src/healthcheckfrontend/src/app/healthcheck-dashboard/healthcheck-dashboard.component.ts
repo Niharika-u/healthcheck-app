@@ -9,6 +9,7 @@ import { Project } from '../project';
 import { NgModule }  from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { ISubscription } from "rxjs/Subscription";
 
 
 @Component({
@@ -28,7 +29,7 @@ export class HealthcheckDashboardComponent implements OnInit {
   uniqueProjectNames: string[] = [];
   healthCheckById: HealthCheck = new HealthCheck();
   public timer;
-  public subscription;
+  subscription: ISubscription;
 
   constructor(
   	private healthCheckService: HealthcheckService,
@@ -45,7 +46,7 @@ export class HealthcheckDashboardComponent implements OnInit {
       this.subscription.unsubscribe();
     }
     
-    this.timer = Observable.timer(5000,3500);
+    this.timer = Observable.timer(500,3000);
     this.subscription = this.timer.subscribe(() => {
       this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
       .then(healthChecks => this.healthChecks = healthChecks ) 
@@ -55,7 +56,6 @@ export class HealthcheckDashboardComponent implements OnInit {
         }
         this.uniqueProjectNames = Array.from(new Set(this.uniqueProjectNames));
       });
-      console.log("inside function");
     });
   }
 
