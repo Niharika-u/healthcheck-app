@@ -8,6 +8,7 @@ import { ProjectService } from '../app-services/project.service';
 import { Project } from '../project';
 import { NgModule }  from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 
 @Component({
@@ -26,32 +27,35 @@ export class HealthcheckDashboardComponent implements OnInit {
   envTypes: Array<string>;
   uniqueProjectNames: string[] = [];
   healthCheckById: HealthCheck = new HealthCheck();
+  public timer;
+  public subscription;
 
   constructor(
   	private healthCheckService: HealthcheckService,
     private utilService: UtilService,
-    private http: Http) {  
-
-    /*Observable.interval(10000)
-    .switchMap(() => this.healthCheckService.getAllHealthCheck()).map((data) => data)
-      .subscribe((data) => {
-        this.healthChecks=data;
-        console.log(data);
-      })*/
+    private http: Http) { 
   }
 
   ngOnInit() {
-  	this.envTypes = this.utilService.envTypes;
+    this.envTypes = this.utilService.envTypes;
   }
 
   getHealthChecksByEnv(selectedEnv: string): void {
-    this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
-    .then(healthChecks => this.healthChecks = healthChecks ) 
-    .then(() => {
-      for(let healthCheck of this.healthChecks){
-        this.uniqueProjectNames.push(healthCheck.projectName);
-      }
-      this.uniqueProjectNames = Array.from(new Set(this.uniqueProjectNames));
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+    
+    this.timer = Observable.timer(5000,3500);
+    this.subscription = this.timer.subscribe(() => {
+      this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
+      .then(healthChecks => this.healthChecks = healthChecks ) 
+      .then(() => {
+        for(let healthCheck of this.healthChecks){
+          this.uniqueProjectNames.push(healthCheck.projectName);
+        }
+        this.uniqueProjectNames = Array.from(new Set(this.uniqueProjectNames));
+      });
+      console.log("inside function");
     });
   }
 
