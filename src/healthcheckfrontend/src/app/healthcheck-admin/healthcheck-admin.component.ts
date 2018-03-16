@@ -45,7 +45,7 @@ export class HealthcheckAdminComponent implements OnInit {
 
   }
 
-  addHealthcheck(newhcdetail: NgForm, selectedEnv): void {
+  addHealthcheck(newhcdetail: NgForm): void {
     this.healthCheckService.addHealthcheck(newhcdetail.value)
     .then(addHealthcheck => {
       newhcdetail.reset();
@@ -67,7 +67,7 @@ export class HealthcheckAdminComponent implements OnInit {
       let existingHealthCheck = this.healthChecks.find(healthcheck => healthcheck.healthCheckId === updateHealthCheck.healthCheckId);
       Object.assign(existingHealthCheck, updateHealthCheck);
       this.clearEditing();
-    })
+    });
   }
 
   editHealthCheck(healthCheckData: HealthCheck): void {

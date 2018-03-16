@@ -5,7 +5,8 @@
       <div class="col-3">
         <div class="btn-group dropdown">
           <button type="button" class="btn btn-secondary">Select Project</button>
-          <select class = "custom-select" name="projectName" id="envId" [ngModel]="editingHealthCheck.projectName" required >
+          <select class = "custom-select" name="projectName" id="envId" 
+          [(ngModel)]="editingHealthCheck.projectName" required >
             <option *ngFor="let projectName of projects" [value]="projectName.projectName">{{projectName.projectName}}</option>
           </select>
         </div>
@@ -13,7 +14,7 @@
       <div class="col-3">
         <div class="btn-group dropdown">
           <button type="button" class="btn btn-secondary">Select Environment</button>
-          <select class = "custom-select" id="envId" name="envName" [ngModel]="editingHealthCheck.envName" required >
+          <select class = "custom-select" id="envId" name="envName" [(ngModel)]="editingHealthCheck.envName" required >
             <option *ngFor="let envName of envTypes" [value]="envName">{{envName}}</option>
           </select>
         </div>
