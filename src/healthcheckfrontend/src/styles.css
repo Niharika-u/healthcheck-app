@@ -108,10 +108,12 @@ input {
 }
 
 .todo-content .todo-actions, .todo-content .edit-actions {
+    box-sizing: border-box;
     float: right;
 }
 
 .todo-content .todo-actions i, .todo-content .edit-actions i {
+    box-sizing: border-box;
     font-size: 17px;
 }
 
@@ -121,17 +123,22 @@ input {
   width: 35px;
   height: 35px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .todo-content .todo-actions a:hover, .todo-content .edit-actions a:hover {
   background-color: #f4f4f4;
+  box-sizing: border-box;
 }
 
 .todo-content .todo-edit input {
+  box-sizing: border-box;
+  display: inline-block;
   width: calc(100% - 80px);
   height: 35px;
 }
 .todo-content .edit-actions {
+  box-sizing: border-box;
   text-align: right;
 }
 

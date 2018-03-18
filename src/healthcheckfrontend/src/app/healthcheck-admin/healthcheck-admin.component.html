@@ -105,7 +105,8 @@
         <td>{{healthcheck.ipAddress}}</td>
         <td>{{healthcheck.applicationPort}}</td>
         <td>{{healthcheck.healthCheckPort}}</td>
-        <td><span class="edit-actions"><a (click)="editHealthCheck(healthcheck)"><i class="material-icons edit">edit</i></a></span></td>
+        <td><span class="todo-actions"><a (click)="editHealthCheck(healthcheck)"><i class="material-icons edit">edit</i></a>
+        </span></td>
         <td><a (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons delete">delete</i></a></td>
       </tr>
     </ng-container>
