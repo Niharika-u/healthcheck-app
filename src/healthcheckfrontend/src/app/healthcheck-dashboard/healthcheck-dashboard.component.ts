@@ -30,6 +30,7 @@ export class HealthcheckDashboardComponent implements OnInit {
   healthCheckById: HealthCheck = new HealthCheck();
   public timer;
   subscription: ISubscription;
+  selectedEnv: string;
 
   constructor(
   	private healthCheckService: HealthcheckService,
@@ -48,6 +49,7 @@ export class HealthcheckDashboardComponent implements OnInit {
     
     this.timer = Observable.timer(500,3000);
     this.subscription = this.timer.subscribe(() => {
+      this.selectedEnv = selectedEnv;
       this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
       .then(healthChecks => this.healthChecks = healthChecks ) 
       .then(() => {

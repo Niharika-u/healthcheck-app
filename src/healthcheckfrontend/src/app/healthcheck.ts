@@ -5,7 +5,8 @@ export class HealthCheck {
   componentName: string;
   ipAddress: string;
   applicationPort: string;
-  healthcheckPort: string;
+  healthCheckPort: string;
   healthCheckUrl: string;
   serverStatus: string;
+  createdBy: string;
 }

@@ -19,7 +19,7 @@ export class HealthcheckAdminComponent implements OnInit {
   editing: boolean = false;
   editingHealthCheck: HealthCheck = new HealthCheck();
   envTypes: Array<string>;
-  selectedEnviornment: string;
+  selectedEnv: string;
 
   constructor(
     private healthCheckService: HealthcheckService,
@@ -34,7 +34,7 @@ export class HealthcheckAdminComponent implements OnInit {
   }
 
   getHealthChecks(selectedEnv: string): void {
-    this.selectedEnviornment = selectedEnv;
+    this.selectedEnv = selectedEnv;
     this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
     .then(healthChecks => this.filteredHealthCheck = healthChecks);
   }
@@ -63,9 +63,10 @@ export class HealthcheckAdminComponent implements OnInit {
 
   updateHealthCheck(healthCheckData: HealthCheck): void {
     this.healthCheckService.updateHealthCheck(healthCheckData)
-    .then(updateHealthCheck => {
-      let existingHealthCheck = this.healthChecks.find(healthcheck => healthcheck.healthCheckId === updateHealthCheck.healthCheckId);
-      Object.assign(existingHealthCheck, updateHealthCheck);
+    .then(() => {
+      console.log(healthCheckData.healthCheckId);
+      let existingHealthCheck = this.healthChecks.find(healthcheck => healthcheck.healthCheckId === healthCheckData.healthCheckId);
+      Object.assign(existingHealthCheck, healthCheckData);
       this.clearEditing();
     });
   }

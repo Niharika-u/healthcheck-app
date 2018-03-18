@@ -14,7 +14,7 @@
       </div>
     </form>
   </div>
-  <ul class="project-admin">
+  <ul class="todo-list">
     <li *ngFor="let project of projects" >
       <div class="todo-row" *ngIf="!editing || editingProject.projectId != project.projectId">
         <span class="todo-title">
