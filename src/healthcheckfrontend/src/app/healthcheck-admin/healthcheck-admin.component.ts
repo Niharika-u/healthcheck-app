@@ -51,23 +51,23 @@ export class HealthcheckAdminComponent implements OnInit {
       newhcdetail.reset();
       this.newHealthCheck = new HealthCheck();
       this.healthChecks.unshift(addHealthcheck);
+      this.getHealthChecks(this.selectedEnv);
     });
+
   }
 
   deleteHealthcheckData(healthCheckId: string): void {
     this.healthCheckService.deleteHealthcheckData(healthCheckId)
     .then(() => {
-      this.healthChecks = this.healthChecks.filter(healthcheck => healthcheck.healthCheckId != healthCheckId);
+      this.getHealthChecks(this.selectedEnv);
     });
   }
 
   updateHealthCheck(healthCheckData: HealthCheck): void {
     this.healthCheckService.updateHealthCheck(healthCheckData)
     .then(() => {
-      console.log(healthCheckData.healthCheckId);
-      let existingHealthCheck = this.healthChecks.find(healthcheck => healthcheck.healthCheckId === healthCheckData.healthCheckId);
-      Object.assign(existingHealthCheck, healthCheckData);
       this.clearEditing();
+      this.getHealthChecks(this.selectedEnv);
     });
   }
 
