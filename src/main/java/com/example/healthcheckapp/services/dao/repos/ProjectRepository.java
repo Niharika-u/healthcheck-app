@@ -1,6 +1,6 @@
-package com.example.healthcheckapp.repositories;
+package com.example.healthcheckapp.services.dao.repos;
 
-import com.example.healthcheckapp.models.ProjectInfo;
+import com.example.healthcheckapp.services.dao.models.ProjectInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

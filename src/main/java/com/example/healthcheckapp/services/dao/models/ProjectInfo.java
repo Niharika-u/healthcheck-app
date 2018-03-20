@@ -1,4 +1,4 @@
-package com.example.healthcheckapp.models;
+package com.example.healthcheckapp.services.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
