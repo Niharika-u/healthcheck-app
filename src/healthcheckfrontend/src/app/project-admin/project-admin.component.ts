@@ -46,7 +46,6 @@ export class ProjectAdminComponent implements OnInit {
   }
 
   updateProject(projectData: Project): void {
-    console.log(projectData);
     this.projectService.updateProject(projectData)
       .then(updatedProject => {
         let existingProject = this.projects.find(project => project.projectId === updatedProject.projectId);

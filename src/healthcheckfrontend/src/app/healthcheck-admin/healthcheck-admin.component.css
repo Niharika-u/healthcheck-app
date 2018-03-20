@@ -1,0 +1,20 @@
+.custom-card {
+	background-color: rgb(18, 70, 128);
+	color:#fff;
+}
+
+.table-head {
+	background-color: rgb(18, 70, 128);
+	color: white;
+}
+.red-btn{
+	color: #fff;
+  	background-color: #bc0006;
+  	border-color: #bc0006;
+}
+
+.blue-btn{
+	background-color: rgb(18, 70, 128);
+	color: #fff;
+	border-color: rgb(18, 70, 128);
+}

@@ -36,16 +36,6 @@ export class HealthcheckService {
       .catch(this.handleError);
   }
 
-/*  private getHealthCheckStatus(hcheckId: string): void{
-    Observable.interval(5000)
-      .switchMap(() => this.http.get(this.baseUrl + '/hcheck/id' + hcheckId))
-      .map((data) => data.json().Data)
-      .subscribe(
-        (data) => {
-          console.log(data);
-        })
-  }*/
-
  addHealthcheck(healthcheckData: HealthCheck): Promise<HealthCheck> {
     return this.http.post(this.baseUrl + '/hcheck/add', healthcheckData)
       .toPromise().then(response => response.json() as HealthCheck)

@@ -11,7 +11,6 @@ import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { ISubscription } from "rxjs/Subscription";
 
-
 @Component({
   selector: 'app-healthcheck-dashboard',
   templateUrl: './healthcheck-dashboard.component.html',
@@ -24,13 +23,13 @@ import { ISubscription } from "rxjs/Subscription";
 
 export class HealthcheckDashboardComponent implements OnInit {
   healthChecks: HealthCheck[];
-  //title = 'HealthCheck DashBoard';
   envTypes: Array<string>;
   uniqueProjectNames: string[] = [];
   healthCheckById: HealthCheck = new HealthCheck();
   public timer;
   subscription: ISubscription;
   selectedEnv: string;
+
 
   constructor(
   	private healthCheckService: HealthcheckService,
@@ -65,4 +64,5 @@ export class HealthcheckDashboardComponent implements OnInit {
     this.healthCheckService.getHealthCheckById(healthCheckId)
     .then(healthCheckById => this.healthCheckById = healthCheckById);
   }
+
 }

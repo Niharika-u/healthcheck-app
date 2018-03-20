@@ -57,8 +57,13 @@ public class HealthCheckController {
     }
 
     @GetMapping(value="/all")
-    @Scheduled(fixedRate = 6000)
     public List<ServerHealthCheck> getAllHealthchecks()
+    {
+        return healthCheckRepository.findAll();
+    }
+
+    @Scheduled(fixedRate = 6000)
+    public void updateTableForHealthchcekStatus()
     {
         List<ServerHealthCheck> listOfHealthChecks = healthCheckRepository.findAll();
         boolean preVerificationServerStatus = false, postVerificationServerStatus = false;
@@ -70,7 +75,6 @@ public class HealthCheckController {
                 healthCheckRepository.save(healthCheck);
             }
         }
-        return healthCheckRepository.findAll();
     }
 
     @PostMapping(value="/add")

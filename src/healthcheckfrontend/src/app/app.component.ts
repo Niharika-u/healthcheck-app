@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'E-WISE APP SERVER MONITOR(E-WASM)';
+  title = 'E-WISE APP SERVER MONITOR';
+   isClassVisible: false;
 }
