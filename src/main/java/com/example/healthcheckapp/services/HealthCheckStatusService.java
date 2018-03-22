@@ -21,10 +21,11 @@ public class HealthCheckStatusService extends RESTHandler {
             healthCheckURL = healthCheckURL.substring(1,healthCheckURL.length()-1);
         String apiUrl = "http://" + healthCheckIP + ":" + healthCheckPort + "/" + healthCheckURL;
         String response = getResponse(RequestType.GET, getHeader(), apiUrl, "", 200);
+
         //String request
         if(response == null)
             return false;
-        else if (response.toLowerCase().contains("true") || response.toLowerCase().contains("ok"))
+        else if (response.toLowerCase().contains("true") || response.toLowerCase().contains("ok") || response.toLowerCase().contains("up"))
             return true;
 
         return false;

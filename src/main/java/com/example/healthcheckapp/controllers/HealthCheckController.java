@@ -28,6 +28,9 @@ public class HealthCheckController {
     @Autowired
     private HealthCheckService healthCheckService;
 
+    @Autowired
+    private HealthCheckStatusService healthCheckStatusService;
+
     @GetMapping(value="/env/{env}")
     public List<ServerHealthCheck> getAllHealthchecksByEnv(@PathVariable("env") String env) {
         return healthCheckService.getAllHealthChecksByEnv(env);
@@ -72,6 +75,4 @@ public class HealthCheckController {
             return new ResponseEntity<ServerHealthCheck>(updatedHealthCheckInfo, HttpStatus.OK);
         }
     }
-
-
 }

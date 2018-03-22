@@ -259,7 +259,7 @@ public class RESTHandler {
             if (expectedStatusCode == 1000) {
                 break;
             }
-        } while ((response.statusCode() != expectedStatusCode) && counter < 3);
+        } while ((response.statusCode() != expectedStatusCode) && counter < 1);
 
         if (expectedStatusCode != 1000)
             validateResult(expectedStatusCode, response.statusCode(), "Status Code Validation");
