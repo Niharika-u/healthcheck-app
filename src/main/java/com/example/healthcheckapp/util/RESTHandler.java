@@ -16,6 +16,8 @@ import java.util.Set;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.ExtractableResponse;
 import com.jayway.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
 
@@ -27,6 +29,7 @@ public class RESTHandler {
     public static Boolean retryLogic;
     public static Boolean exceptionOccured;
 
+    private static Logger logger = LoggerFactory.getLogger(RESTHandler.class);
     private static HashMap<String,String> headerMap = new HashMap<>();
 
     /**
@@ -166,7 +169,7 @@ public class RESTHandler {
      * RestAssured Function
      *
      */
-    protected static String getResponse(final RequestType requestType, final Map<String, String> headerMap,
+    protected static Map<Integer, String> getResponse(final RequestType requestType, final Map<String, String> headerMap,
                                         final String requestURL, final String requestBody, final Integer expectedStatusCode) {
 
         List<String> headerList = new ArrayList<String>();
@@ -261,14 +264,16 @@ public class RESTHandler {
             }
         } while ((response.statusCode() != expectedStatusCode) && counter < 1);
 
-        if (expectedStatusCode != 1000)
+        logger.info("Response Received from Server: "+response.asString());
+        /*if (expectedStatusCode != 1000)
             validateResult(expectedStatusCode, response.statusCode(), "Status Code Validation");
-
+*/
         // RESTHandler.log("Response : " + response.asString());
         RESTHandler.log(
                 "-------------------------------------------------------------------------------------------------------------------------");
-        // Cookie cookie = response.detailedCookie(name);
-        return response.asString();
+        Map<Integer, String> responseCodeandContentMap = new HashMap();
+        responseCodeandContentMap.put(response.statusCode(), response.asString());
+        return responseCodeandContentMap;
     }
 
     /**

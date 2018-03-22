@@ -3,6 +3,8 @@ package com.example.healthcheckapp.controllers;
 import com.example.healthcheckapp.services.HealthCheckService;
 import com.example.healthcheckapp.services.HealthCheckStatusService;
 import com.example.healthcheckapp.services.dao.models.ServerHealthCheck;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,6 +26,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class HealthCheckController {
 
+    private Logger logger = LoggerFactory.getLogger(HealthCheckController.class);
 
     @Autowired
     private HealthCheckService healthCheckService;
@@ -54,7 +57,8 @@ public class HealthCheckController {
 
     @PostMapping(value="/add")
     public ServerHealthCheck addServerHealthCheck(@Valid @RequestBody ServerHealthCheck serverHealthCheck) {
-        //  Setting the server status as false at the time of addtion as a default mechanism
+        //  Setting the server status as false at the time of addition as a default mechanism
+        logger.info("HealthCheck Addition Request: "+serverHealthCheck.toString());
         if(serverHealthCheck.getServerStatus() == null)
             serverHealthCheck.setServerStatus(false);
         return healthCheckService.saveHealthChecks(serverHealthCheck);
@@ -67,7 +71,7 @@ public class HealthCheckController {
 
     @PutMapping(value="/{hcid}")
     public ResponseEntity<ServerHealthCheck> updateHealthcheckData(@PathVariable("hcid") String hcid, @Valid @RequestBody ServerHealthCheck serverHealthCheckReq) {
-
+        logger.info("Update HealthCheck Request"+serverHealthCheckReq.toString());
         ServerHealthCheck updatedHealthCheckInfo = healthCheckService.updateHealthCheck(hcid, serverHealthCheckReq);
         if(updatedHealthCheckInfo == null){
             return new ResponseEntity<ServerHealthCheck>(updatedHealthCheckInfo, HttpStatus.NOT_FOUND);

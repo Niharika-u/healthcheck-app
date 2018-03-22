@@ -2,9 +2,9 @@ package com.example.healthcheckapp.controllers;
 
 import com.example.healthcheckapp.services.ProjectService;
 import com.example.healthcheckapp.services.dao.models.ProjectInfo;
-import com.example.healthcheckapp.services.dao.repos.ProjectRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +20,8 @@ import java.util.List;
 @CrossOrigin("*")
 public class ProjectController {
 
+    private Logger logger = LoggerFactory.getLogger(ProjectController.class);
+
     @Autowired
     ProjectService projectService;
 
@@ -30,6 +32,7 @@ public class ProjectController {
 
     @PostMapping("/add")
     public ProjectInfo addProjectInfo(@Valid @RequestBody ProjectInfo projectInfo) {
+        logger.info(projectInfo.toString());
         return projectService.saveNewProjects(projectInfo);
     }
 
@@ -45,6 +48,7 @@ public class ProjectController {
 
     @PutMapping(value="/{pid}")
     public ResponseEntity<ProjectInfo> updateProject(@PathVariable("pid") String pid, @Valid @RequestBody ProjectInfo projectInfo){
+        logger.info("Update Project Request: "+projectInfo.toString());
         ProjectInfo projectInfoData = projectService.updateProjectAndProjectNameInHealthChecks(pid, projectInfo);
         if(projectInfoData == null){
             return new ResponseEntity<ProjectInfo>(HttpStatus.NOT_FOUND);

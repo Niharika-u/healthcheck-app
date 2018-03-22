@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -16,6 +19,7 @@ import java.util.Date;
 public class ProjectInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String projectId;
 
     @NotBlank
