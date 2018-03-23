@@ -34,21 +34,15 @@ public class HealthCheckController {
     @Autowired
     private HealthCheckStatusService healthCheckStatusService;
 
-    @GetMapping(value="/env/{env}")
-    public List<ServerHealthCheck> getAllHealthchecksByEnv(@PathVariable("env") String env) {
-        return healthCheckService.getAllHealthChecksByEnv(env);
+    @GetMapping(value="/filterhc/{env}/{projectName}")
+    public List<ServerHealthCheck> getAllHealthchecksByEnv(@PathVariable("env") String env, @PathVariable("projectName") String projectFilter) {
+        return healthCheckService.getAllHealthchecksByFilter(env,projectFilter);
     }
 
     @GetMapping(value="/id/{hcheckId}")
     public ServerHealthCheck getHealthCheckForAnHealthCheckId(@PathVariable("hcheckId") String hcheckId) {
         return healthCheckService.findHealthCheckById(hcheckId);
     }
-
-    @GetMapping(value="/all")
-    public List<ServerHealthCheck> getAllHealthchecks() {
-        return healthCheckService.findAllHealthChecks();
-    }
-
 
     @Scheduled(fixedRate = 6000)
     public void updateTableForHealthcheckStatus() {
@@ -71,7 +65,7 @@ public class HealthCheckController {
 
     @PutMapping(value="/{hcid}")
     public ResponseEntity<ServerHealthCheck> updateHealthcheckData(@PathVariable("hcid") String hcid, @Valid @RequestBody ServerHealthCheck serverHealthCheckReq) {
-        logger.info("Update HealthCheck Request"+serverHealthCheckReq.toString());
+        logger.info("Update HealthCheck Request" + serverHealthCheckReq.toString());
         ServerHealthCheck updatedHealthCheckInfo = healthCheckService.updateHealthCheck(hcid, serverHealthCheckReq);
         if(updatedHealthCheckInfo == null){
             return new ResponseEntity<ServerHealthCheck>(updatedHealthCheckInfo, HttpStatus.NOT_FOUND);

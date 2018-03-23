@@ -25,19 +25,19 @@ public class HealthCheckService {
 
     @Autowired
     HealthCheckRepository healthCheckRepository;
-
+    Query query;
     @Autowired
     private HealthCheckStatusService healthCheckStatusService;
 
-    Query query;
-
-    public List<ServerHealthCheck> findAllHealthChecks() {
-        return healthCheckRepository.findAll();
-    }
-
-    public List<ServerHealthCheck> getAllHealthChecksByEnv(String env){
+    public List<ServerHealthCheck> getAllHealthchecksByFilter(String env,String projectName){
         query = new Query();
-        query.addCriteria(Criteria.where("envName").is(env));
+        if(!projectName.equals("blank")){
+            query.addCriteria(Criteria.where("projectName").is(projectName));
+        }
+        if(!env.equals("blank")) {
+            query.addCriteria(Criteria.where("envName").is(env));
+        }
+
         List<ServerHealthCheck> listOfServerHealthChecks = mongoTemplate.find(query,ServerHealthCheck.class);
         return listOfServerHealthChecks;
 
