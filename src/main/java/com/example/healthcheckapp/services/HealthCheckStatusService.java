@@ -32,6 +32,8 @@ public class HealthCheckStatusService extends RESTHandler {
 
         responseCodeAndContentMap = getResponse(RequestType.GET, getHeader(), apiUrl, "", 200);
         logger.info("RequestURL: " + apiUrl);
+        if(responseCodeAndContentMap == null)
+            return false;
         Map.Entry<Integer, String> entrySet = responseCodeAndContentMap.entrySet().iterator().next();
         responseCode = entrySet.getKey();
         responseContent = entrySet.getValue();
