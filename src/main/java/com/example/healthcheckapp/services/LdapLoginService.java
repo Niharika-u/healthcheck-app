@@ -21,8 +21,6 @@ public class LdapLoginService extends RESTHandler {
 
     private Logger logger = LoggerFactory.getLogger(LdapLoginService.class);
 
-    public void sendEmailToHealthCheckOwner(){
-        List<ServerHealthCheck> listOfHealthChecks = healthCheckRepository.findAll();
-    }
+
 
 }

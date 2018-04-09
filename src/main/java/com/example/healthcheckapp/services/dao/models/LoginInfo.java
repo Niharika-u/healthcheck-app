@@ -12,6 +12,21 @@ public class LoginInfo {
     private String mmtId;
 
     @NotBlank
-    private String mmtEmailId;
+    private String mmtPassword;
 
+    public String getMmtId() {
+        return mmtId;
+    }
+
+    public void setMmtId(String mmtId) {
+        this.mmtId = mmtId;
+    }
+
+   /* public String getMmtPassword() {
+        return mmtPassword;
+    }*/
+
+    public void setMmtPassword(String mmtPassword) {
+        this.mmtPassword = mmtPassword;
+    }
 }
