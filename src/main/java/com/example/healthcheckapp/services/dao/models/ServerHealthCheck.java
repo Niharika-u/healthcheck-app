@@ -37,9 +37,25 @@ public class ServerHealthCheck {
     @NotBlank
     private String healthCheckUrl;
 
-    private String createdBy;
+    @NotBlank
+    private String emailIdOfCreatedBy;
+
+    @NotBlank
+    private String groupEmailId;
 
     private Date healthCheckCreatedAt = new Date();
+
+    private Date healthCheckUpdatedAt = new Date();
+
+    private Date timeOfUpdatingDailyNotificationPreference = new Date();
+
+    private Boolean notificationSentStatus;
+
+    @NotBlank
+    private Boolean dailyNotificationStatus;
+
+    private String countOfDaysForBlockingNotification;
+
 
     @NotBlank
     public String envName;
@@ -50,7 +66,10 @@ public class ServerHealthCheck {
         super();
     }
 
-    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckPort, String healthCheckUrl, Boolean serverStatus){
+    /*
+    Creating a Server Health Check with Created by's Email ID, Group Email Id and DailyNotification Status set as FALSE
+     */
+    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckPort, String healthCheckUrl, Boolean serverStatus, String createdBy, String groupEmailId, Boolean dailyNotificationStatus, String countOfDaysForBlockingNotification){
         this.projectName = projectName;
         this.envName = envName;
         this.componentName = componentName;
@@ -59,18 +78,43 @@ public class ServerHealthCheck {
         this.healthCheckPort = healthCheckPort;
         this.healthCheckUrl = healthCheckUrl;
         this.serverStatus = serverStatus;
+        this.emailIdOfCreatedBy = createdBy;
+        this.groupEmailId = groupEmailId;
+        this.dailyNotificationStatus = dailyNotificationStatus;
+        this.countOfDaysForBlockingNotification = countOfDaysForBlockingNotification;
     }
 
-    public ServerHealthCheck(String projectName, String envName, String componentName, String ipAddress, String applicationPort, String healthCheckPort, String healthCheckUrl, Boolean serverStatus, String createdBy){
-        this.projectName = projectName;
-        this.envName = envName;
-        this.componentName = componentName;
-        this.ipAddress = ipAddress;
-        this.applicationPort = applicationPort;
-        this.healthCheckPort = healthCheckPort;
-        this.healthCheckUrl = healthCheckUrl;
-        this.serverStatus = serverStatus;
-        this.createdBy = createdBy;
+
+    public String getEmailIdOfCreatedBy() {
+        return emailIdOfCreatedBy;
+    }
+
+    public void setEmailIdOfCreatedBy(String emailIdOfCreatedBy) {
+        this.emailIdOfCreatedBy = emailIdOfCreatedBy;
+    }
+
+    public String getGroupEmailId() {
+        return groupEmailId;
+    }
+
+    public void setGroupEmailId(String groupEmailId) {
+        this.groupEmailId = groupEmailId;
+    }
+
+    public Boolean getDailyNotificationStatus() {
+        return dailyNotificationStatus;
+    }
+
+    public void setDailyNotificationStatus(Boolean dailyNotificationStatus) {
+        this.dailyNotificationStatus = dailyNotificationStatus;
+    }
+
+    public String getCountOfDaysForBlockingNotification() {
+        return countOfDaysForBlockingNotification;
+    }
+
+    public void setCountOfDaysForBlockingNotification(String countOfDaysForBlockingNotification) {
+        this.countOfDaysForBlockingNotification = countOfDaysForBlockingNotification;
     }
 
     public String getHealthCheckId() {
@@ -145,14 +189,6 @@ public class ServerHealthCheck {
         this.serverStatus = serverStatus;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public Date getHealthCheckCreatedAt() {
         return healthCheckCreatedAt;
     }
@@ -161,9 +197,35 @@ public class ServerHealthCheck {
         this.healthCheckCreatedAt = healthCheckCreatedAt;
     }
 
+    public Date getHealthCheckUpdatedAt() {
+        return healthCheckUpdatedAt;
+    }
+
+    public void setHealthCheckUpdatedAt(Date healthCheckUpdatedAt) {
+        this.healthCheckUpdatedAt = healthCheckUpdatedAt;
+    }
+
+    public Boolean getNotificationSentStatus() {
+        return notificationSentStatus;
+    }
+
+    public Date getTimeOfUpdatingDailyNotificationPreference() {
+        return timeOfUpdatingDailyNotificationPreference;
+    }
+
+    public void setTimeOfUpdatingDailyNotificationPreference(Date timeOfUpdatingDailyNotificationPreference) {
+        this.timeOfUpdatingDailyNotificationPreference = timeOfUpdatingDailyNotificationPreference;
+    }
+
+    public void setNotificationSentStatus(Boolean notificationSentStatus) {
+        this.notificationSentStatus = notificationSentStatus;
+    }
+
     @Override
     public String toString() {
-        return String.format("ServerHealthCheck[healthCheckId=%s, componentName='%s', envName='%s', ipAddress='%s', applicationPort='%s', healthCheckPort='%s', healthCheckUrl='%s', serverStatus='%s', createdBy='%s', healthCheckCreatedAt='%s']",
-                healthCheckId, componentName, envName, ipAddress, applicationPort, healthCheckPort, healthCheckUrl, serverStatus, createdBy, healthCheckCreatedAt);
+        return String.format("ServerHealthCheck[healthCheckId=%s, componentName='%s', envName='%s', ipAddress='%s', applicationPort='%s', healthCheckPort='%s', healthCheckUrl='%s', serverStatus='%s', emailIdOfCreatedBy='%s', groupEmailId='%s', healthCheckCreatedAt='%s', healthCheckUpdatedAt='%s', notificationSentStatus='%s', dailyNotificationStatus='%s', countOfDaysForBlockingNotification='%s', timeOfUpdatingDailyNotificationPreference='%s'",
+                healthCheckId, componentName, envName, ipAddress, applicationPort, healthCheckPort, healthCheckUrl, serverStatus, emailIdOfCreatedBy, groupEmailId, healthCheckCreatedAt, healthCheckUpdatedAt, notificationSentStatus, dailyNotificationStatus, countOfDaysForBlockingNotification, timeOfUpdatingDailyNotificationPreference);
     }
+
+
 }

@@ -283,7 +283,7 @@ public class RESTHandler {
      * @param cookies
      *
      */
-    protected static void setHeader(String mmtAuth, String basicAuth, String identifier, String cookies) {
+    protected static void setHeader() {
 
         //int lengthOfParameters = parameters.length;
         //String mmtAuth, basicAuth, id, cookie;
@@ -291,14 +291,14 @@ public class RESTHandler {
         // Assigning the default values in the Header map
         headerMap.put("Content-Type", "application/json");
         headerMap.put("Accept", "application/json");
-        if(!mmtAuth.isEmpty())
+        /*if(!mmtAuth.isEmpty())
             headerMap.put("mmtauth", mmtAuth);
         if(!basicAuth.isEmpty())
             headerMap.put("Authorization", basicAuth);
         if(!identifier.isEmpty())
             headerMap.put("id", identifier);
         if(!cookies.isEmpty())
-            headerMap.put("Cookie", cookies);
+            headerMap.put("Cookie", cookies);*/
 
     }
 
