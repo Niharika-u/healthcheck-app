@@ -1,30 +1,34 @@
 package com.example.healthcheckapp.services.dao.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
+import org.springframework.data.annotation.Transient;
 
 /**
- * Created By MMT6540 on 03 Apr, 2018
+ * Created By MMT6540 on 09 Apr, 2018
  */
+@Document(collection="userdetailstbl")
 public class UserInfo {
+
     @Id
+    @Indexed(unique=true)
+    @NotBlank
     private String mmtId;
 
+    @Indexed(unique=true)
     @NotBlank
-    @Indexed(unique = true)
-    private String emailId;
+    private String mmtEMailId;
 
-    public String getPaswd() {
-        return paswd;
-    }
-
-    public void setPaswd(String paswd) {
-        this.paswd = paswd;
-    }
-
+    @Indexed(unique=true)
     @NotBlank
-    private String paswd;
+    private String mmtGroupEMailId;
+
+    @Transient
+    private String mmtPassword;
 
     public String getMmtId() {
         return mmtId;
@@ -34,11 +38,27 @@ public class UserInfo {
         this.mmtId = mmtId;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getMmtEMailId() {
+        return mmtEMailId;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setMmtEMailId(String mmtEMailId) {
+        this.mmtEMailId = mmtEMailId;
+    }
+
+    public String getMmtGroupEMailId() {
+        return mmtGroupEMailId;
+    }
+
+    public void setMmtGroupEMailId(String mmtGroupEMailId) {
+        this.mmtGroupEMailId = mmtGroupEMailId;
+    }
+
+    public String getMmtPassword() {
+        return mmtPassword;
+    }
+
+    public void setMmtPassword(String mmtPassword) {
+        this.mmtPassword = mmtPassword;
     }
 }

@@ -1,10 +1,10 @@
 package com.example.healthcheckapp.services.dao.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 
 /**
- * Created By MMT6540 on 03 Apr, 2018
+ * Created By MMT6540 on 09 Apr, 2018
  */
 public class LoginInfo {
 
@@ -12,7 +12,7 @@ public class LoginInfo {
     private String mmtId;
 
     @NotBlank
-    private String mmtPassword;
+    private String password;
 
     public String getMmtId() {
         return mmtId;
@@ -22,11 +22,11 @@ public class LoginInfo {
         this.mmtId = mmtId;
     }
 
-   /* public String getMmtPassword() {
-        return mmtPassword;
-    }*/
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public void setMmtPassword(String mmtPassword) {
-        this.mmtPassword = mmtPassword;
+    public String getPassword() {
+        return password;
     }
 }

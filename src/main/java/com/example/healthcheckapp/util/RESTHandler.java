@@ -354,6 +354,7 @@ public class RESTHandler {
      * @return Map with all the header values
      */
     protected static HashMap<String, String> getHeader() {
+        setHeader();
         return headerMap;
     }
 
