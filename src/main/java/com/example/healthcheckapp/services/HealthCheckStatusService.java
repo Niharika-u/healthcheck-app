@@ -72,7 +72,7 @@ public class HealthCheckStatusService extends RESTHandler {
         SendEmailToHealthCheckOwnerPojo sendEmailToHealthCheckOwnerPojo = new SendEmailToHealthCheckOwnerPojo();
         sendEmailToHealthCheckOwnerPojo.setTo(healthCheck.getEmailIdOfCreatedBy());
         sendEmailToHealthCheckOwnerPojo.setFrom(mailingFromId);
-        sendEmailToHealthCheckOwnerPojo.setCc(mailingCcList);
+        sendEmailToHealthCheckOwnerPojo.setCc(healthCheck.getGroupEmailId());
         sendEmailToHealthCheckOwnerPojo.setSubject("Health Check @"+healthCheck.getIpAddress()+": "+healthCheck.getComponentName()+" is down!");
         sendEmailToHealthCheckOwnerPojo.setTriggerName("simple_email");
         EmailContentPojo emailContent = new EmailContentPojo();

@@ -74,11 +74,11 @@ public class HealthCheckController {
         //if(serverHealthCheck.getNotificationSentStatus() == null)
             serverHealthCheck.setNotificationSentStatus(false);
         //  Setting the value of CountOfDaysForBlockingNotification based on if user has opted for Daily Alerts
-        if(serverHealthCheck.getDailyNotificationStatus() == true){
+        if(serverHealthCheck.getDailyNotificationStatus() == false){
             serverHealthCheck.setCountOfDaysForBlockingNotification("0");
             serverHealthCheck.setTimeOfUpdatingDailyNotificationPreference(DateIncrementor.incrementDate(new Date(), 1));
         }
-        if(serverHealthCheck.getDailyNotificationStatus() == false){
+        if(serverHealthCheck.getDailyNotificationStatus() == true){
             serverHealthCheck.setTimeOfUpdatingDailyNotificationPreference(DateIncrementor.incrementDate(new Date(), Integer.parseInt(serverHealthCheck.getCountOfDaysForBlockingNotification())));
         }
 

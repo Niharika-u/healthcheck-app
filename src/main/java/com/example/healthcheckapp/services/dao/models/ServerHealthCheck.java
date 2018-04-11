@@ -51,11 +51,9 @@ public class ServerHealthCheck {
 
     private Boolean notificationSentStatus;
 
-    @NotBlank
     private Boolean dailyNotificationStatus;
 
     private String countOfDaysForBlockingNotification;
-
 
     @NotBlank
     public String envName;
