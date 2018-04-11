@@ -15,15 +15,14 @@ import org.springframework.data.annotation.Transient;
 public class UserInfo {
 
     @Id
-    @Indexed(unique=true)
     @NotBlank
+    @Indexed(unique=true)
     private String mmtId;
 
-    @Indexed(unique=true)
     @NotBlank
+    @Indexed(unique=true)
     private String mmtEMailId;
 
-    @Indexed(unique=true)
     @NotBlank
     private String mmtGroupEMailId;
 
@@ -60,5 +59,11 @@ public class UserInfo {
 
     public void setMmtPassword(String mmtPassword) {
         this.mmtPassword = mmtPassword;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("UserInfo[mmtId=%s, mmtEMailId='%s', mmtGroupEMailId='%s']",
+                mmtId, mmtEMailId, mmtGroupEMailId);
     }
 }
